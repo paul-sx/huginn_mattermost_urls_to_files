@@ -71,8 +71,8 @@ module Agents
       tempfile.unlink
       mm_file = JSON.parse(response.body)
 
-      mm_file[:file_infos].each_with_object([]) do |fi, li|
-        li <<= fi[:id]
+      mm_file['file_infos'].each_with_object([]) do |fi, li|
+        li <<= fi['id']
       end
 
     end
