@@ -42,7 +42,7 @@ module Agents
           end
         else
           url = interpolated['urls']
-          send_message post_file urls
+          send_message post_file url
         end
       end
     end
