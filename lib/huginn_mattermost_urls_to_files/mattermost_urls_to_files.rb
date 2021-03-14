@@ -60,7 +60,22 @@ module Agents
       file_resp = Faraday.get(url)
       return nil unless file_resp.status == 200
       
-      tempfile = Tempfile.new('download', binmode: true)
+      extension = ''
+      case file_resp.headers['Content-Type'].downcase
+      when 'image/jpg'
+        extension = '.jpg'
+      when 'image/jpeg'
+        extension = '.jpg'
+      when 'image/png'
+        extension ='.png'
+      when 'image/gif'
+        extension = '.gif'
+      when 'application/pdf'
+        extension = '.pdf'
+      when 'image/tiff'
+        extension = '.tif'
+      end
+      tempfile = Tempfile.new(['download',extension], binmode: true)
       tempfile.write file_resp.body
       tempfile.close
 
