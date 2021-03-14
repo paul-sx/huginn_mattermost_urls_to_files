@@ -65,7 +65,7 @@ module Agents
       tempfile.close
 
       payload = {channel_id: channel_id()}
-      payload[:files] = Faraday::FilePart.new(tempfile.path, file_resp.headers['Content-Type'])
+      payload[:files] = Faraday::UploadIO.new(tempfile.path, file_resp.headers['Content-Type'])
 
       response = mattermost_client.post("/api/v4/files", payload)
       tempfile.unlink
