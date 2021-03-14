@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "huginn_agent"
   spec.add_runtime_dependency "faraday"
   spec.add_runtime_dependency "tempfile"
+  spec.add_runtime_dependency 'uri'
 end

@@ -53,7 +53,7 @@ module Agents
         message: interpolated['message'],
         file_ids: file_ids
       }
-      mattermost_client.post("/api/v4/posts", payload.to_x_www_form_urlencoded)
+      mattermost_client.post("/api/v4/posts", URI.encode_www_form(payload))
     end
 
     def post_file(url)
