@@ -53,14 +53,14 @@ module Agents
         message: interpolated['message'],
         file_ids: file_ids
       }
-      resp = mattermost_client.post("/api/v4/posts", payload)
+      mattermost_client.post("/api/v4/posts", payload)
     end
 
     def post_file(url)
       file_resp = Faraday.get(url)
       return nil unless file_resp.status == 200
       
-      tempfile = Tempfile.new('download')
+      tempfile = Tempfile.new('download', binmode: true)
       tempfile.write file_resp.body
       tempfile.close
 
