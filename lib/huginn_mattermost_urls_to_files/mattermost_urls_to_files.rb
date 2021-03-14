@@ -53,7 +53,7 @@ module Agents
         message: interpolated['message'],
         file_ids: file_ids
       }
-      mattermost_client.post("/api/v4/posts", URI.encode_www_form(payload))
+      mattermost_client.post("/api/v4/posts", payload)
     end
 
     def post_file(url)
@@ -81,6 +81,7 @@ module Agents
       @mattermost_client ||= Faraday.new(url: interpolated['mattermost_server_url']) do |builder|
         builder.request :retry
         builder.request :multipart
+        builder.request :url_encoded
         builder.authorization :Bearer, interpolated['mattermost_token']
         builder.adapter :net_http
       end
