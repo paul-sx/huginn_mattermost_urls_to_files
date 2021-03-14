@@ -1,9 +1,11 @@
 module Agents
   class MattermostUrlsToFiles < Agent
-    default_schedule '12h'
+    cannot_be_scheduled!
+    cannot_create_events!
+    no_bulk_receive!
 
     description <<-MD
-      Add a Agent description here
+      Takes a list of URLs, downloads them and then posts them as files to the described mattermost server, team, and channel. If message is defined the files are posted with the given message.
     MD
 
     def default_options
@@ -18,10 +20,15 @@ module Agents
     end
 
     def validate_options
+      errors.add(:base, 'mattermost_server_url missing') unless options['mattermost_server_url'].present?
+      errors.add(:base, 'mattermost_team missing') unless options['mattermost_team'].present?
+      errors.add(:base, 'mattermost_channel missing') unless options['mattermost_channel'].present?
+      errors.add(:base, 'mattermost_token missing') unless options['mattermost_token'].present?
+      errors.add(:base, 'urls missing') unless options['urls'].present?
     end
 
     def working?
-      true
+      !recent_error_logs?
     end
 
 #    def check
