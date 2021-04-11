@@ -1,8 +1,7 @@
 # MattermostUrlsToFiles
 
-Welcome to your new agent gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/huginn_mattermost_urls_to_files`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This is a huginn specific gem that takes a passed url, downloads it, and then
+posts it to a mattermost channel as a specified user.
 
 ## Installation
 
@@ -13,7 +12,7 @@ Add this string to your Huginn's .env `ADDITIONAL_GEMS` configuration:
 ```ruby
 huginn_mattermost_urls_to_files
 # when only using this agent gem it should look like this:
-ADDITIONAL_GEMS=huginn_mattermost_urls_to_files
+ADDITIONAL_GEMS=huginn_mattermost_urls_to_files(git:https://github.com/paul-sx/huginn_mattermost_urls_to_files.git)
 ```
 
 And then execute:
@@ -22,7 +21,23 @@ And then execute:
 
 ## Usage
 
-TODO: Write usage instructions here
+Configure the gem within huginn.  You will need a mattermost token for your
+intended user/sender of the files.
+
+```ruby
+def default_options
+   {
+      'mattermost_server_url' => 'https://mattermost.com/',
+      'mattermost_team' => 'team_name',
+      'mattermost_channel' => 'channel_name',
+      'mattermost_token' => '{% credential mattermost_token %}',
+      'urls' => '{{urls}}',
+      'message' => '{{message}}'
+   }
+
+ ```
+ 
+
 
 ## Development
 
@@ -40,7 +55,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/huginn_mattermost_urls_to_files/fork )
+1. Fork it ( https://github.com/paul-sx/huginn_mattermost_urls_to_files/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
