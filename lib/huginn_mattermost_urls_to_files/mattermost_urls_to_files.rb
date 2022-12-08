@@ -1,3 +1,4 @@
+require 'uri'
 module Agents
   class MattermostUrlsToFiles < Agent
     cannot_be_scheduled!
